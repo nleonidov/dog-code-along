@@ -36,6 +36,7 @@ function getValue(e) {
 }
 
 async function getBreed(breed) {
+    removePic()
     const url = `https://dog.ceo/api/breed/${breed}/images/random`
     try {
         const response = await axios(url)
@@ -54,7 +55,14 @@ function dogPic(breed) {
     document.querySelector('select').value = ''
 }
 
+function removePic() {
+    const oldPic = document.querySelector('#append-dog')
+    while (oldPic.lastChild) {
+        oldPic.removeChild(oldPic.lastChild)
+    }
+}
 
 const form = document.querySelector('form')
 form.addEventListener('submit', getValue)
+
 
