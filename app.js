@@ -32,7 +32,29 @@ function getValue(e) {
     e.preventDefault()
     const optionValue = document.querySelector('#select-breed').value
     console.log(optionValue)
+    getBreed(optionValue)
 }
+
+async function getBreed(breed) {
+    const url = `https://dog.ceo/api/breed/${breed}/images/random`
+    try {
+        const response = await axios(url)
+        // console.log(response.data.message)
+        const breedImage = response.data.message
+        dogPic(breedImage)
+    } catch (error) {
+        console.log(`Error: ${error}`)
+    }
+}
+
+function dogPic(breed) {
+    const image = document.createElement('img')
+    image.src = breed
+    document.querySelector('#append-dog').append(image)
+    document.querySelector('select').value = ''
+}
+
 
 const form = document.querySelector('form')
 form.addEventListener('submit', getValue)
+
